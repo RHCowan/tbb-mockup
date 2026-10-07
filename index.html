@@ -1,0 +1,909 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Tasman Bay Backpackers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400..800&family=Caveat+Brush&family=Figtree:ital,wght@0,400..700;1,400&display=swap">
+<style>
+body { margin: 0; }
+/* Layout: a warm, people-first house page. Photo collage hero with a live "pudding tonight" note,
+   then a bento of the small things, the team's letter, rooms, longer stays, Nelson, and how to find us.
+   Single light look on purpose: it's a sunny-house brand, not an app. */
+:root {
+  color-scheme: light;
+  --paper: #FFFAF3;
+  --sand: #F5EADA;
+  --sand-line: #E7D7BF;
+  --ink: #23303A;
+  --muted: #5A6872;
+  --sea: #17588C;
+  --sea-deep: #0F3A5E;
+  --sea-tint: #E4EEF6;
+  --orange: #EB6420;
+  --orange-ink: #BC4911;
+  --pudding: #3B2219;
+  --pudding-cream: #F6E6D6;
+  --note: #FFE57A;
+  --leaf: #8DAA2E;
+  --white: #FFFFFF;
+  --shadow: 0 1px 2px rgba(35, 48, 58, .08), 0 10px 30px -12px rgba(35, 48, 58, .28);
+
+  --display: "Bricolage Grotesque", "Avenir Next", "Trebuchet MS", sans-serif;
+  --body: "Figtree", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --hand: "Caveat Brush", "Bradley Hand", "Comic Sans MS", cursive;
+
+  --step--1: .875rem;
+  --step-0: 1.0625rem;
+  --step-1: 1.25rem;
+  --step-2: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
+  --step-3: clamp(2rem, 1.4rem + 2.4vw, 3rem);
+  --step-4: clamp(2.6rem, 1.6rem + 4.4vw, 5rem);
+
+  --wrap: 1180px;
+  --gutter: clamp(16px, 4vw, 40px);
+  --radius: 22px;
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 84px; }
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 var(--step-0)/1.6 var(--body);
+  -webkit-font-smoothing: antialiased;
+}
+img { display: block; max-width: 100%; height: auto; }
+a { color: var(--sea); text-underline-offset: 3px; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--orange); outline-offset: 3px; border-radius: 6px; }
+h1, h2, h3 { font-family: var(--display); line-height: 1.05; letter-spacing: -.02em; text-wrap: balance; margin: 0; color: var(--sea-deep); }
+h2 { font-size: var(--step-3); font-weight: 750; }
+h3 { font-size: var(--step-1); font-weight: 700; letter-spacing: -.01em; }
+p { margin: 0; }
+
+.wrap { max-width: var(--wrap); margin-inline: auto; padding-inline: var(--gutter); }
+.section { padding-block: clamp(64px, 9vw, 120px); }
+.eyebrow {
+  font: 700 .78rem/1.2 var(--body);
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--orange-ink);
+}
+.lede { font-size: var(--step-1); color: var(--muted); max-width: 58ch; }
+.hand { font-family: var(--hand); font-weight: 400; letter-spacing: 0; }
+.section-head { display: grid; gap: 14px; max-width: 720px; margin-bottom: clamp(32px, 5vw, 56px); }
+
+.btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 26px;
+  border-radius: 999px;
+  font: 700 1rem/1 var(--body);
+  text-decoration: none;
+  border: 2px solid transparent;
+  transition: transform .15s ease, background-color .15s ease, box-shadow .15s ease;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn-primary { background: var(--orange-ink); color: var(--white); box-shadow: 0 8px 20px -10px var(--orange-ink); }
+.btn-primary:hover { background: var(--orange); }
+.btn-ghost { border-color: var(--sea); color: var(--sea); background: transparent; }
+.btn-ghost:hover { background: var(--sea-tint); }
+.btn svg { width: 18px; height: 18px; flex: none; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 50;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--sand-line);
+}
+.nav { display: flex; align-items: center; gap: 24px; min-height: 72px; }
+.nav .logo img { width: 150px; }
+.nav-links { display: flex; gap: 4px; margin-left: auto; list-style: none; padding: 0; margin-block: 0; }
+.nav-links a {
+  display: block; padding: 10px 12px; border-radius: 10px;
+  font-weight: 600; font-size: .98rem; color: var(--ink); text-decoration: none;
+}
+.nav-links a:hover { background: var(--sand); }
+.nav-cta { padding: 12px 20px; }
+.nav-toggle {
+  display: none; margin-left: auto;
+  background: none; border: 2px solid var(--sea); color: var(--sea);
+  border-radius: 999px; padding: 8px 16px; font: 700 .95rem var(--body); cursor: pointer;
+}
+
+/* ---------- Hero ---------- */
+.hero { padding-block: clamp(28px, 5vw, 64px) clamp(56px, 7vw, 96px); overflow: hidden; }
+.hero-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(32px, 5vw, 72px); align-items: center; }
+.hero-copy { display: grid; gap: 22px; min-width: 0; }
+.hero h1 { font-size: var(--step-4); font-weight: 800; letter-spacing: -.035em; }
+.hero h1 .warm { color: var(--orange-ink); position: relative; white-space: nowrap; }
+.hero h1 .warm svg { position: absolute; left: -2%; bottom: -.16em; width: 104%; height: .32em; overflow: visible; }
+.hero-sub { font-size: var(--step-1); color: var(--muted); max-width: 46ch; }
+.hero-actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.hero-meta { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: var(--step--1); color: var(--muted); }
+.hero-meta span { display: inline-flex; align-items: center; gap: 8px; }
+.hero-meta svg { width: 16px; height: 16px; color: var(--leaf); }
+
+.collage { position: relative; min-width: 0; }
+.collage-main {
+  width: 100%; aspect-ratio: 5 / 4; object-fit: cover; object-position: 38% 50%;
+  border-radius: 28px; box-shadow: var(--shadow);
+}
+
+.pudding-note {
+  position: relative; width: min(300px, 88%); margin: -64px 24px 0 auto;
+  background: var(--note); color: var(--pudding);
+  padding: 18px 20px 20px; border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(59, 34, 25, .12), 0 18px 30px -16px rgba(59, 34, 25, .45);
+  transform: rotate(2.5deg);
+}
+.pudding-note::before {
+  content: ""; position: absolute; top: -12px; left: 50%; width: 86px; height: 24px;
+  transform: translateX(-50%) rotate(-3deg);
+  background: rgba(255, 255, 255, .55); border: 1px solid rgba(59, 34, 25, .08);
+}
+.pudding-note .note-label { font: 700 .72rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; opacity: .75; }
+.pudding-note .note-big { font: 1.9rem/1.05 var(--hand); margin-top: 8px; }
+.pudding-note .note-small { font-size: .9rem; line-height: 1.4; margin-top: 8px; }
+.pudding-note .note-clock { font-size: .78rem; margin-top: 10px; opacity: .7; font-variant-numeric: tabular-nums; }
+
+/* ---------- Ribbon ---------- */
+.ribbon { background: var(--sea-deep); color: var(--white); overflow: hidden; }
+.ribbon-track {
+  display: flex; gap: 40px; width: max-content; padding-block: 16px;
+  font: 600 1.05rem/1 var(--display); letter-spacing: .01em;
+  animation: drift 48s linear infinite;
+}
+.ribbon-track span { display: inline-flex; align-items: center; gap: 40px; white-space: nowrap; }
+.ribbon-track span::after { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--orange); }
+@keyframes drift { to { transform: translateX(-50%); } }
+
+/* ---------- Small things bento ---------- */
+.bento { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); grid-auto-rows: minmax(250px, auto); gap: 16px; }
+.tile { position: relative; border-radius: var(--radius); overflow: hidden; min-width: 0; }
+.tile-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.tile-photo .tile-text {
+  position: absolute; inset: auto 0 0 0; padding: 60px 22px 20px;
+  background: linear-gradient(to top, rgba(20, 22, 26, .82), rgba(20, 22, 26, 0));
+  color: var(--white);
+}
+.tile-photo h3 { color: var(--white); }
+.tile-text p { font-size: .98rem; line-height: 1.5; margin-top: 6px; }
+
+.tile-pudding {
+  grid-column: span 2; grid-row: span 2;
+  background: var(--pudding); color: var(--pudding-cream);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+}
+.tile-pudding .pud-copy { padding: clamp(24px, 3.5vw, 40px); display: flex; flex-direction: column; gap: 16px; justify-content: center; }
+.tile-pudding h3 { color: var(--white); font-size: var(--step-3); font-weight: 800; letter-spacing: -.03em; }
+.tile-pudding p { color: var(--pudding-cream); }
+.tile-pudding .time-badge {
+  align-self: flex-start;
+  display: inline-flex; align-items: baseline; gap: 8px;
+  background: var(--note); color: var(--pudding); padding: 8px 14px; border-radius: 999px;
+  font: 700 .9rem/1 var(--body);
+}
+.tile-pudding .time-badge b { font: 800 1.35rem/1 var(--display); }
+.tile-pudding .pud-photo { position: relative; min-height: 260px; }
+.tile-pudding .pud-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 40% 50%; }
+.tile-pudding .fine { font-size: .88rem; opacity: .8; }
+
+.tile-hammock { grid-row: span 2; }
+.tile-hammock img { object-position: 50% 35%; }
+.tile-winter {
+  background: var(--orange-ink); color: var(--white); padding: 26px 24px;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 16px;
+}
+.tile-winter h3 { color: var(--white); }
+.tile-winter ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; font-weight: 600; }
+.tile-winter li { display: flex; gap: 10px; align-items: center; }
+.tile-winter li::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--note); flex: none; }
+.tile-connect {
+  grid-column: 1 / -1; background: var(--sea-tint);
+  display: flex; flex-wrap: wrap; align-items: center; gap: 16px 28px;
+  padding: 24px clamp(22px, 3vw, 36px);
+}
+.tile-connect .chat-bubble {
+  background: var(--white); border-radius: 18px 18px 18px 4px; padding: 12px 16px;
+  font-size: .95rem; box-shadow: var(--shadow); max-width: 320px;
+}
+.tile-connect .chat-bubble small { display: block; font-size: .75rem; color: var(--muted); margin-bottom: 2px; font-weight: 600; }
+.tile-connect > div:first-child { flex: 1 1 340px; min-width: 0; }
+.tile-connect p { color: var(--muted); margin-top: 6px; }
+
+/* ---------- Guest quote ---------- */
+.quote { background: var(--sand); }
+.quote-wrap { max-width: 980px; }
+.quote-photo { position: relative; }
+.quote-photo img { border-radius: var(--radius); aspect-ratio: 1; object-fit: cover; width: 100%; box-shadow: var(--shadow); }
+.quote-photo .hand {
+  position: absolute; right: -10px; bottom: 18px; background: var(--white); color: var(--sea-deep);
+  padding: 6px 14px; border-radius: 6px; font-size: 1.3rem; transform: rotate(-3deg); box-shadow: var(--shadow);
+}
+blockquote { margin: 0; display: grid; gap: 22px; }
+blockquote p {
+  font: 500 clamp(1.3rem, 1rem + 1.1vw, 1.85rem)/1.42 var(--display);
+  letter-spacing: -.01em; color: var(--sea-deep); text-wrap: pretty;
+}
+blockquote p::before { content: "\201C"; color: var(--orange); font-weight: 800; margin-right: .05em; }
+blockquote p::after { content: "\201D"; color: var(--orange); font-weight: 800; }
+blockquote mark { background: linear-gradient(transparent 58%, var(--note) 58%); color: inherit; padding: 0 .1em; }
+blockquote footer { font-weight: 600; color: var(--muted); }
+
+/* ---------- Team / letter ---------- */
+.team-grid { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 80px); align-items: start; }
+.letter {
+  background: var(--white); border-radius: var(--radius); padding: clamp(26px, 4vw, 48px);
+  box-shadow: var(--shadow); display: grid; gap: 18px; position: relative;
+}
+.letter .hand.greeting { font-size: 2.1rem; color: var(--orange-ink); line-height: 1; }
+.letter p { max-width: 62ch; }
+.letter .sign { font: 2rem/1 var(--hand); color: var(--sea); }
+.name-tags { display: flex; flex-wrap: wrap; gap: 10px; }
+.name-tag {
+  border-radius: 10px; overflow: hidden; background: var(--white); border: 2px solid var(--sea);
+  text-align: center; min-width: 108px;
+}
+.name-tag small { display: block; background: var(--sea); color: var(--white); font: 700 .62rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; padding: 6px 10px; }
+.name-tag span { display: block; font: 1.55rem/1 var(--hand); color: var(--ink); padding: 8px 12px 9px; }
+.name-tag.crew { border-color: var(--orange-ink); }
+.name-tag.crew small { background: var(--orange-ink); }
+.team-side { display: grid; gap: 20px; }
+.heads-up {
+  border: 2px dashed var(--sand-line); border-radius: var(--radius); padding: 22px 24px; display: grid; gap: 8px;
+  background: var(--paper);
+}
+.heads-up h3 { font-size: 1.1rem; }
+.heads-up p { color: var(--muted); font-size: .98rem; }
+
+/* ---------- Rooms ---------- */
+.rooms { background: var(--sea-tint); }
+.rooms-top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 32px; }
+.rooms-top .section-head { margin-bottom: 0; }
+.tabs { display: inline-flex; background: var(--white); border-radius: 999px; padding: 5px; gap: 4px; box-shadow: var(--shadow); }
+.tab {
+  border: 0; background: transparent; padding: 11px 20px; border-radius: 999px; cursor: pointer;
+  font: 700 .95rem/1 var(--body); color: var(--muted);
+}
+.tab[aria-selected="true"] { background: var(--sea); color: var(--white); }
+.room-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 18px; }
+.room {
+  background: var(--white); border-radius: var(--radius); overflow: hidden; display: flex; flex-direction: column;
+  box-shadow: 0 1px 2px rgba(35, 48, 58, .06);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.room:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.room img { aspect-ratio: 16 / 10; object-fit: cover; width: 100%; }
+.room-body { padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 12px; flex: 1; }
+.room-kicker { font: 700 .72rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--orange-ink); }
+.room ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; font-size: .95rem; color: var(--muted); }
+.room li { display: flex; gap: 10px; align-items: baseline; }
+.room li::before { content: ""; width: 6px; height: 6px; border-radius: 50%; background: var(--leaf); flex: none; transform: translateY(-2px); }
+.room-link { margin-top: auto; font-weight: 700; text-decoration: none; display: inline-flex; gap: 6px; align-items: center; color: var(--sea); }
+.room-link:hover { text-decoration: underline; }
+.rooms-foot { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 12px 28px; align-items: center; color: var(--muted); font-size: .95rem; }
+
+/* ---------- Stay longer ---------- */
+.longer { background: var(--sea-deep); color: var(--sea-tint); }
+.longer h2, .longer h3 { color: var(--white); }
+.longer .eyebrow { color: var(--note); }
+.longer .lede { color: #C4D6E6; }
+.longer-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px; }
+.longer-card { border-radius: var(--radius); padding: 28px; background: rgba(255, 255, 255, .06); border: 1px solid rgba(255, 255, 255, .12); display: grid; gap: 12px; align-content: start; }
+.longer-card p { color: #C4D6E6; font-size: .98rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip { padding: 7px 12px; border-radius: 999px; background: rgba(255, 255, 255, .1); color: var(--white); font-size: .88rem; font-weight: 600; }
+.longer .btn-primary { background: var(--orange); }
+.longer .btn-primary:hover { background: var(--orange-ink); }
+.longer-cta { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+.longer-cta span { color: #C4D6E6; font-size: .95rem; }
+
+/* ---------- Nelson ---------- */
+.nelson-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); grid-auto-rows: 220px; gap: 14px; }
+.spot { position: relative; border-radius: 18px; overflow: hidden; min-width: 0; }
+.spot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transition: transform .5s ease; }
+.spot:hover img { transform: scale(1.04); }
+.spot figcaption {
+  position: absolute; inset: auto 0 0 0; padding: 40px 16px 14px;
+  background: linear-gradient(to top, rgba(15, 20, 26, .78), rgba(15, 20, 26, 0));
+  color: var(--white); font-weight: 600; font-size: .98rem; line-height: 1.3;
+}
+.spot figcaption small { display: block; font-weight: 500; opacity: .85; font-size: .82rem; margin-top: 2px; }
+.spot.big { grid-column: span 2; grid-row: span 2; }
+.spot.big figcaption { font: 700 1.4rem/1.2 var(--display); padding: 60px 22px 20px; }
+.spot.big figcaption small { font: 500 .95rem var(--body); }
+.free-list {
+  margin-top: 28px; background: var(--white); border-radius: var(--radius); padding: clamp(24px, 4vw, 40px);
+  display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 2fr); gap: 24px 48px; box-shadow: var(--shadow);
+}
+.free-list .hand { font-size: 2.2rem; color: var(--orange-ink); line-height: 1; }
+.free-note { margin-top: 10px; color: var(--muted); }
+.free-list ul { list-style: none; margin: 0; padding: 0; columns: 2 260px; column-gap: 32px; }
+.free-list li { break-inside: avoid; display: flex; gap: 12px; padding: 7px 0; border-bottom: 1px dashed var(--sand-line); }
+.free-list li svg { width: 20px; height: 20px; flex: none; color: var(--leaf); margin-top: 3px; }
+
+/* ---------- Find us ---------- */
+.find { background: var(--sand); }
+.find-grid { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 5vw, 64px); align-items: stretch; }
+.find-card { background: var(--white); border-radius: var(--radius); padding: clamp(24px, 4vw, 40px); display: grid; gap: 22px; align-content: start; box-shadow: var(--shadow); }
+.contact-row { display: grid; gap: 4px; }
+.contact-row .label { font: 700 .72rem/1 var(--body); letter-spacing: .12em; text-transform: uppercase; color: var(--muted); }
+.contact-row .value { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 12px; font: 600 1.15rem/1.35 var(--display); color: var(--ink); }
+.contact-row .value span { user-select: all; }
+.copy {
+  border: 1px solid var(--sand-line); background: var(--paper); color: var(--sea); border-radius: 999px;
+  padding: 5px 12px; font: 700 .78rem/1 var(--body); cursor: pointer;
+}
+.copy:hover { background: var(--sea-tint); }
+.hours { display: grid; gap: 0; border-top: 1px solid var(--sand-line); }
+.hours div { display: flex; justify-content: space-between; gap: 16px; padding: 11px 0; border-bottom: 1px solid var(--sand-line); font-size: .97rem; }
+.hours dt { color: var(--muted); }
+.hours dd { margin: 0; font-weight: 600; text-align: right; font-variant-numeric: tabular-nums; }
+.find-photo { position: relative; border-radius: var(--radius); overflow: hidden; min-height: 380px; box-shadow: var(--shadow); }
+.find-photo img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.find-photo .overlay {
+  position: absolute; inset: auto 16px 16px 16px; background: var(--white); border-radius: 16px; padding: 16px 18px;
+  display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between;
+}
+.find-photo .overlay p { font-weight: 600; }
+.find-photo .overlay small { display: block; color: var(--muted); font-weight: 500; }
+.small-print { margin-top: 28px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.small-print div { font-size: .93rem; color: var(--muted); padding: 18px 20px; border-radius: 16px; background: rgba(255, 255, 255, .55); }
+.small-print strong { color: var(--ink); display: block; margin-bottom: 4px; }
+
+/* ---------- Footer ---------- */
+.site-footer { background: var(--pudding); color: var(--pudding-cream); padding-block: 56px 36px; }
+.foot-grid { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 32px; align-items: flex-start; }
+.foot-tag { font: 2.2rem/1.1 var(--hand); color: var(--note); max-width: 18ch; }
+.foot-links { display: flex; flex-wrap: wrap; gap: 32px 56px; }
+.foot-links h4 { margin: 0 0 10px; font: 700 .72rem/1 var(--body); letter-spacing: .14em; text-transform: uppercase; color: #C9A994; }
+.foot-links ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 6px; }
+.foot-links a { color: var(--pudding-cream); text-decoration: none; }
+.foot-links a:hover { text-decoration: underline; }
+.foot-base { margin-top: 44px; padding-top: 20px; border-top: 1px solid rgba(246, 230, 214, .16); font-size: .85rem; color: #C9A994; display: flex; flex-wrap: wrap; gap: 8px 24px; justify-content: space-between; }
+
+/* ---------- Load moment ---------- */
+@keyframes settle-note { from { transform: rotate(8deg) translateY(-14px); } to { transform: rotate(2.5deg); } }
+.pudding-note { animation: settle-note .8s cubic-bezier(.2, .9, .3, 1.2) .25s backwards; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 980px) {
+  .nav-links, .nav-cta { display: none; }
+  .nav-toggle { display: inline-block; }
+  .nav.open { flex-wrap: wrap; padding-bottom: 14px; }
+  .nav.open .nav-links { display: grid; width: 100%; order: 3; margin: 0; }
+  .nav.open .nav-cta { display: inline-flex; order: 4; }
+  .hero-grid, .team-grid, .find-grid { grid-template-columns: minmax(0, 1fr); }
+  .collage { max-width: 640px; }
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tile-pudding { grid-column: 1 / -1; grid-row: auto; }
+  .tile-hammock { grid-row: auto; }
+  .longer-grid { grid-template-columns: minmax(0, 1fr); }
+  .nelson-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-auto-rows: 200px; }
+  .free-list { grid-template-columns: minmax(0, 1fr); }
+  .team-side { grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); align-items: start; }
+}
+@media (max-width: 620px) {
+  .nav .logo img { width: 128px; }
+  .pudding-note { margin: -40px 12px 0 auto; }
+  .bento { grid-template-columns: minmax(0, 1fr); grid-auto-rows: auto; }
+  .tile-pudding { grid-template-columns: minmax(0, 1fr); }
+  .tile-pudding .pud-photo { order: -1; min-height: 220px; }
+  .tile-photo { min-height: 280px; }
+  .tile-hammock { grid-row: auto; min-height: 420px; }
+  .nelson-grid { grid-template-columns: minmax(0, 1fr); grid-auto-rows: 220px; }
+  .spot.big { grid-column: auto; grid-row: span 1; }
+  .small-print { grid-template-columns: minmax(0, 1fr); }
+  .rooms-top { align-items: start; }
+  .tab { padding: 10px 14px; }
+}
+</style>
+
+</head>
+<body>
+<header class="site-header">
+  <nav class="wrap nav" id="nav" aria-label="Main">
+    <a class="logo" href="#top" aria-label="Tasman Bay Backpackers home">
+      <img src="img/logo.png" alt="Tasman Bay Backpackers" width="466" height="149">
+    </a>
+    <ul class="nav-links">
+      <li><a href="#small-things">The small things</a></li>
+      <li><a href="#rooms">Rooms</a></li>
+      <li><a href="#stay-longer">Stay longer</a></li>
+      <li><a href="#nelson">Nelson</a></li>
+      <li><a href="#find-us">Find us</a></li>
+    </ul>
+    <a class="btn btn-primary nav-cta" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">Book a bed</a>
+    <button class="nav-toggle" id="nav-toggle" type="button" aria-expanded="false" aria-controls="nav">Menu</button>
+  </nav>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Independent hostel · Nelson, Aotearoa New Zealand</p>
+        <h1>A little like home. With <span class="warm">pudding at 8.<svg viewBox="0 0 200 20" preserveAspectRatio="none" aria-hidden="true"><path d="M3 13 C 40 4, 80 18, 120 9 S 180 6, 197 11" fill="none" stroke="#EB6420" stroke-width="5" stroke-linecap="round"/></svg></span></h1>
+        <p class="hero-sub">Tasman Bay Backpackers is a small, privately owned hostel in sunny Nelson. Think log fire, hammocks in the garden, guitars and games to share, and free hot chocolate pudding for everyone, every night of the year.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">
+            Check dates &amp; book
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn btn-ghost" href="#small-things">Have a look around</a>
+        </div>
+        <div class="hero-meta">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Free fast wifi</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Free cancellation up to 24h before</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Help finding work in Nelson</span>
+        </div>
+      </div>
+
+      <div class="collage">
+        <img class="collage-main" src="img/pudding-crowd.jpg" alt="Guests crowding round the table as hot chocolate pudding is served into bright striped bowls" width="1800" height="1192">
+        <aside class="pudding-note" aria-live="polite">
+          <div class="note-label">Tonight at TBB</div>
+          <div class="note-big" id="note-big">Pudding's at 8pm</div>
+          <div class="note-small" id="note-small">Hot chocolate pudding &amp; ice cream. Free for every guest.</div>
+          <div class="note-clock" id="note-clock">Every night of the year</div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <div class="ribbon" aria-hidden="true">
+    <div class="ribbon-track">
+      <span>Free hot chocolate pudding</span><span>Roaring log fire</span><span>Hammocks in the garden</span><span>Guitars &amp; board games</span><span>Free super-fast wifi</span><span>Warm duvets &amp; hotties</span><span>7–9 Off-Line Time</span><span>Weekly rates</span>
+      <span>Free hot chocolate pudding</span><span>Roaring log fire</span><span>Hammocks in the garden</span><span>Guitars &amp; board games</span><span>Free super-fast wifi</span><span>Warm duvets &amp; hotties</span><span>7–9 Off-Line Time</span><span>Weekly rates</span>
+    </div>
+  </div>
+
+  <section class="section" id="small-things">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Why people come back</p>
+        <h2>It's the small things that make us different</h2>
+        <p class="lede">We'd like TBB to feel like your favourite café. Good music, friendly faces, somewhere comfy to sit, and the atmosphere just right.</p>
+      </div>
+
+      <div class="bento">
+        <article class="tile tile-pudding">
+          <div class="pud-copy">
+            <span class="time-badge"><b>8pm</b> every night</span>
+            <h3>Free hot chocolate pudding &amp; ice cream</h3>
+            <p>We're a bit famous for it. Every evening, all year round, a big pot comes out and everyone gathers round. Sometimes it's a fruit crumble instead.</p>
+            <p class="fine">Vegan friendly. No charge. Seconds are not unheard of.</p>
+          </div>
+          <div class="pud-photo">
+            <img src="img/pudding-serve.jpg" alt="A host serving pudding from a large pot while guests wait with bowls" width="813" height="539" loading="lazy">
+          </div>
+        </article>
+
+        <article class="tile tile-photo tile-hammock">
+          <img src="img/hammock.jpg" alt="A guest reading in a hammock among the garden plants" width="733" height="1100" loading="lazy">
+          <div class="tile-text">
+            <h3>Hammocks out the back</h3>
+            <p>A garden with fairy lights at night and a hammock with your name on it.</p>
+          </div>
+        </article>
+
+        <article class="tile tile-photo">
+          <img src="img/fireplace.jpg" alt="Guests playing Scrabble and guitar beside the log fire" width="1400" height="926" loading="lazy">
+          <div class="tile-text">
+            <h3>7–9 Off-Line Time</h3>
+            <p>Phones down for a couple of hours. Games, music and swapping stories.</p>
+          </div>
+        </article>
+
+        <article class="tile tile-winter">
+          <h3>Winter here is cosy</h3>
+          <ul>
+            <li>Log fire every night</li>
+            <li>Hot water bottles &amp; extra blankets</li>
+            <li>Quiz, movie and yoga nights</li>
+            <li>Football in the park</li>
+          </ul>
+        </article>
+
+        <article class="tile tile-photo">
+          <img src="img/laptop-lounge.jpg" alt="A guest working on a laptop on a comfy couch" width="1400" height="936" loading="lazy">
+          <div class="tile-text">
+            <h3>Free super-fast wifi</h3>
+            <p>Quiet corners to work, study or just journal.</p>
+          </div>
+        </article>
+
+        <article class="tile tile-connect">
+          <div>
+            <h3>Join TBB Connect when you arrive</h3>
+            <p>Our hostel WhatsApp group. Suggest a beach trip, find a hiking buddy, or rally people for music night. It's yours.</p>
+          </div>
+          <div class="chat-bubble"><small>TBB Connect</small>Anyone keen for the Saturday market tomorrow? Leaving 9ish</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section quote">
+    <div class="wrap quote-wrap">
+      <blockquote>
+        <p>My experience at the hostel was just amazing, lovely people and lovely staff! The hostel is really welcoming, with <mark>so many small things that made me feel home</mark>: first the chocolate pudding of course, but also the music instruments and games we can freely use to play all together, the little plants and candles on the tables, the fire to stay warm in winter, the nice backyard with the hammocks, the little lights outside at nighttime.</p>
+        <footer>A traveller who stayed with us</footer>
+      </blockquote>
+    </div>
+  </section>
+
+  <section class="section" id="team">
+    <div class="wrap team-grid">
+      <div class="letter">
+        <p class="eyebrow">A note from the house</p>
+        <h2>Say hello to the people who run TBB</h2>
+        <p class="hand greeting">A big howdy, Spring 2026</p>
+        <p>Spring is here and I'm loving this time of year. The days are getting longer, it's been incredibly sunny, and the gardens are coming alive. The hostel is buzzing with new travellers and a few familiar faces too.</p>
+        <p>When you arrive you'll be greeted by some of us, plus our amazing team of Exchange Workers. Each week we make soup and bread for a staff lunch together, and every night there's chocolate pudding for everyone.</p>
+        <p>We're very committed to the traveller community. Relationships and caring for each other come first here. If that sounds like you, come and stay. We'd love to have you.</p>
+        <div class="name-tags" aria-label="The team">
+          <div class="name-tag"><small>Hello, I'm</small><span>Georgie</span></div>
+          <div class="name-tag"><small>Hello, I'm</small><span>Mark</span></div>
+          <div class="name-tag"><small>Hello, I'm</small><span>Rosie</span></div>
+          <div class="name-tag"><small>Hello, I'm</small><span>Sam</span></div>
+          <div class="name-tag"><small>Hello, I'm</small><span>Henk-Jan</span></div>
+          <div class="name-tag crew"><small>And our</small><span>Exchange crew</span></div>
+        </div>
+        <p class="sign">Georgie &amp; the TBB Team</p>
+      </div>
+
+      <div class="team-side">
+        <div class="quote-photo">
+          <img src="img/brekky.jpg" alt="Two grinning guests holding up bowls of pudding" width="813" height="698" loading="lazy">
+          <span class="hand">pudding night!</span>
+        </div>
+        <div class="heads-up">
+          <h3>Good to know before you come</h3>
+          <p>We're not a flashpackers. Our walls are a bit thin and the furniture is second-hand. People come for the vibe, the friendships they make and the care they feel. One guest who stayed through lockdown in 2020 called it "maybe the first home you have ever really had".</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section rooms" id="rooms">
+    <div class="wrap">
+      <div class="rooms-top">
+        <div class="section-head">
+          <p class="eyebrow">Rooms &amp; rates</p>
+          <h2>Bunk in with friends or have your own space</h2>
+          <p class="lede">All bedding is supplied in every room. Prices are per night and change with the season, so check dates online for today's rates.</p>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Room type">
+          <button class="tab" id="tab-shared" role="tab" aria-selected="true" aria-controls="panel-shared" type="button">Shared rooms</button>
+          <button class="tab" id="tab-private" role="tab" aria-selected="false" aria-controls="panel-private" type="button">Private rooms</button>
+        </div>
+      </div>
+
+      <div class="room-grid" id="panel-shared" role="tabpanel" aria-labelledby="tab-shared">
+        <article class="room">
+          <img src="img/room-6share.jpg" alt="Six share dorm with bunks and a big window" width="500" height="332" loading="lazy">
+          <div class="room-body">
+            <span class="room-kicker">Dorm · sleeps 6</span>
+            <h3>6 Share</h3>
+            <ul><li>Comfy inner-spring mattresses</li><li>Individual reading lights</li><li>Bathrooms close by</li><li>Free towels on request</li></ul>
+            <a class="room-link" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">See prices &rarr;</a>
+          </div>
+        </article>
+        <article class="room">
+          <img src="img/room-4share.jpg" alt="Bright four share room with orange and green walls" width="400" height="265" loading="lazy">
+          <div class="room-body">
+            <span class="room-kicker">Dorm · sleeps 4</span>
+            <h3>4 Share</h3>
+            <ul><li>Comfy inner-spring mattresses</li><li>Individual reading lights</li><li>Bathrooms close by</li><li>Extra blankets &amp; hotties</li></ul>
+            <a class="room-link" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">See prices &rarr;</a>
+          </div>
+        </article>
+        <article class="room">
+          <img src="img/room-triple.jpg" alt="Triple room with a bunk and a single bed" width="1000" height="750" loading="lazy">
+          <div class="room-body">
+            <span class="room-kicker">Shared · sleeps 3</span>
+            <h3>Triple</h3>
+            <ul><li>Great for three friends</li><li>Individual reading lights</li><li>Bathrooms close by</li><li>Extra blankets &amp; hotties</li></ul>
+            <a class="room-link" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">See prices &rarr;</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="room-grid" id="panel-private" role="tabpanel" aria-labelledby="tab-private" hidden>
+        <article class="room">
+          <img src="img/room-queen-ensuite.jpg" alt="Queen ensuite room with red feature wall" width="340" height="195" loading="lazy">
+          <div class="room-body">
+            <span class="room-kicker">Private · ensuite</span>
+            <h3>Queen Ensuite</h3>
+            <ul><li>Made-up queen bed, plus a single</li><li>Your own bathroom</li><li>Towels &amp; soaps provided</li><li>Heater you control</li></ul>
+            <a class="room-link" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">See prices &rarr;</a>
+          </div>
+        </article>
+        <article class="room">
+          <img src="img/room-twin-ensuite.jpg" alt="Twin ensuite room with lime green bathroom" width="500" height="332" loading="lazy">
+          <div class="room-body">
+            <span class="room-kicker">Private · ensuite</span>
+            <h3>Twin Ensuite</h3>
+            <ul><li>Two made-up single beds</li><li>Your own bathroom</li><li>Towels &amp; soaps provided</li><li>Feather duvets in winter</li></ul>
+            <a class="room-link" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">See prices &rarr;</a>
+          </div>
+        </article>
+        <article class="room">
+          <img src="img/room-double.jpg" alt="Standard double room with a striped duvet" width="340" height="195" loading="lazy">
+          <div class="room-body">
+            <span class="room-kicker">Private · shared bathroom</span>
+            <h3>Standard Double</h3>
+            <ul><li>Made-up double bed</li><li>Bathrooms close by</li><li>Towels &amp; soaps provided</li><li>Heating &amp; feather duvets</li></ul>
+            <a class="room-link" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">See prices &rarr;</a>
+          </div>
+        </article>
+        <article class="room">
+          <img src="img/room-twin.jpg" alt="Standard twin room with two single beds" width="340" height="195" loading="lazy">
+          <div class="room-body">
+            <span class="room-kicker">Private · shared bathroom</span>
+            <h3>Standard Twin</h3>
+            <ul><li>Two made-up single beds</li><li>Bathrooms close by</li><li>Towels &amp; soaps provided</li><li>Feather duvets in winter</li></ul>
+            <a class="room-link" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">See prices &rarr;</a>
+          </div>
+        </article>
+      </div>
+
+      <div class="rooms-foot">
+        <a class="btn btn-primary" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">Check availability</a>
+        <a href="https://www.youtube.com/watch?v=oDf7e71kfG0" target="_blank" rel="noopener">Watch the video tour of the hostel</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section longer" id="stay-longer">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Weeks, not nights</p>
+        <h2>Stay a while. Plenty of people do.</h2>
+        <p class="lede">A few weeks or a month here is a great way to start your time in Aotearoa, or to take a breather halfway through. Book a few nights first, see how you like us, then ask about weekly rates.</p>
+      </div>
+      <div class="longer-grid">
+        <div class="longer-card">
+          <h3>Work in Nelson, year round</h3>
+          <p>There's usually plenty of work about, and we're happy to help you find it.</p>
+          <div class="chips">
+            <span class="chip">Cafés</span><span class="chip">Admin</span><span class="chip">Horticulture</span><span class="chip">The port</span><span class="chip">Fishing companies</span><span class="chip">Painting</span><span class="chip">Construction</span>
+          </div>
+        </div>
+        <div class="longer-card">
+          <h3>Weekly rates for international travellers</h3>
+          <p>We have a lovely mix of long-stay travellers working in Nelson and people passing through for a night or two. It keeps the place feeling like a community.</p>
+          <p>Ask at reception once you've settled in.</p>
+        </div>
+        <div class="longer-card">
+          <h3>Digital nomads &amp; students</h3>
+          <p>In winter there's a dedicated space for online work and study. The rest of the year there are plenty of quiet corners. Ask about special rates for remote workers, mostly in the quieter months.</p>
+          <p>Nelson is a great place to spend the winter: markets, pottery classes, biking, hiking, saunas by the sea and yoga.</p>
+        </div>
+      </div>
+      <div class="longer-cta">
+        <a class="btn btn-primary" href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">Book your first few nights</a>
+        <span>Questions about longer stays? Email stay@tasmanbaybackpackers.co.nz</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="nelson">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Right outside the door</p>
+        <h2>Nelson is the sunny, arty corner of the South Island</h2>
+        <p class="lede">Great coffee, craft beer, markets and makers in town. Golden beaches, the Abel Tasman and the mountains not far beyond. Winter or summer, there's loads to do.</p>
+      </div>
+      <div class="nelson-grid">
+        <figure class="spot big">
+          <img src="img/kayak.jpg" alt="Two people sea kayaking over clear green water in the Abel Tasman" width="640" height="370" loading="lazy">
+          <figcaption>Abel Tasman National Park<small>Sea kayaking, sailing, water taxis and some of the best coastal walks in the country</small></figcaption>
+        </figure>
+        <figure class="spot">
+          <img src="img/market.jpg" alt="Crowds at the Nelson Saturday Market" width="640" height="480" loading="lazy">
+          <figcaption>Nelson Saturday Market<small>Local makers, food and buskers</small></figcaption>
+        </figure>
+        <figure class="spot">
+          <img src="img/beach-jump.jpg" alt="Friends jumping off a sand dune at the beach" width="640" height="427" loading="lazy">
+          <figcaption>Tahunanui Beach<small>Free sunshine, in the city</small></figcaption>
+        </figure>
+        <figure class="spot">
+          <img src="img/snowboard.jpg" alt="Snowboarder mid-jump against a blue sky" width="1200" height="799" loading="lazy">
+          <figcaption>Rainbow ski field<small>About 90 minutes away</small></figcaption>
+        </figure>
+        <figure class="spot">
+          <img src="img/bikes.jpg" alt="Two cyclists riding a coastal path near Nelson" width="1280" height="850" loading="lazy">
+          <figcaption>Bike the coast<small>Hire a bike and go exploring</small></figcaption>
+        </figure>
+      </div>
+
+      <div class="free-list">
+        <div>
+          <p class="hand">On a budget?</p>
+          <p class="free-note">Lucky you. So much in Nelson is free. So is our wifi, and so is the pudding.</p>
+        </div>
+        <ul>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Climb to the Centre of New Zealand for views over the city and out to Abel Tasman</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Hire a bike and explore the beach, the river and town</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Soak up the sun at Tahunanui Beach</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Browse the Saturday Market and catch the buskers</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>The Suter Art Gallery is free on Saturdays</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Beach volleyball with your new mates</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Walk the Cable Bay Walkway, and plenty more</li>
+          <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Visit local wineries and boutique breweries</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section find" id="find-us">
+    <div class="wrap">
+      <div class="section-head">
+        <p class="eyebrow">Find us</p>
+        <h2>Follow the fairy lights to Weka Street</h2>
+      </div>
+      <div class="find-grid">
+        <div class="find-card">
+          <div class="contact-row">
+            <span class="label">Address</span>
+            <span class="value"><span>10 Weka St, Nelson 7010</span></span>
+          </div>
+          <div class="contact-row">
+            <span class="label">Phone</span>
+            <span class="value"><span id="phone">+64 3 548 7950</span><button class="copy" type="button" data-copy="phone">Copy</button></span>
+          </div>
+          <div class="contact-row">
+            <span class="label">Email</span>
+            <span class="value"><span id="email">stay@tasmanbaybackpackers.co.nz</span><button class="copy" type="button" data-copy="email">Copy</button></span>
+          </div>
+          <dl class="hours">
+            <div><dt>Reception</dt><dd>Open until 8pm</dd></div>
+            <div><dt>Quiet office hours</dt><dd>12.30pm – 3.30pm</dd></div>
+            <div><dt>Late check-in</dt><dd>Just let us know</dd></div>
+          </dl>
+        </div>
+        <div class="find-photo">
+          <img src="img/night-exterior.jpg" alt="The hostel entrance at night, lit up with fairy lights along the path" width="1800" height="1200" loading="lazy">
+          <div class="overlay">
+            <p>10 Weka St, Nelson<small>Look for the lights by the door</small></p>
+            <a class="btn btn-ghost" href="https://www.google.com/maps/search/?api=1&amp;query=Tasman+Bay+Backpackers+10+Weka+St+Nelson" target="_blank" rel="noopener">Open in Maps</a>
+          </div>
+        </div>
+      </div>
+      <div class="small-print">
+        <div><strong>Cancellations</strong>Let us know at least 24 hours before and there's no fee. Later than that, or a no-show, and we charge the first night.</div>
+        <div><strong>Stay safe</strong>We will never ask you to re-enter card details through WhatsApp or any other link. Treat any message like that as a scam.</div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <p class="foot-tag">It's the small things that make us different.</p>
+      <div class="foot-links">
+        <div>
+          <h4>Stay</h4>
+          <ul>
+            <li><a href="#rooms">Rooms</a></li>
+            <li><a href="#stay-longer">Longer stays</a></li>
+            <li><a href="https://www.smartbooking.co.nz/sfxbook/step_search.php?hostel=tasmanbay" target="_blank" rel="noopener">Book online</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Say hi</h4>
+          <ul>
+            <li><a href="https://www.instagram.com/tasmanbaybackpackers/" target="_blank" rel="noopener">Instagram</a></li>
+            <li><a href="https://www.facebook.com/tasmanbaybackpackers" target="_blank" rel="noopener">Facebook</a></li>
+            <li><a href="#find-us">Contact</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="foot-base">
+      <span>Tasman Bay Backpackers · 10 Weka St, Nelson 7010, New Zealand</span>
+      <span>Privately owned and run with care</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var nav = document.getElementById('nav');
+  var toggle = document.getElementById('nav-toggle');
+  toggle.addEventListener('click', function () {
+    var open = nav.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.textContent = open ? 'Close' : 'Menu';
+  });
+  nav.querySelectorAll('.nav-links a').forEach(function (a) {
+    a.addEventListener('click', function () {
+      nav.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      toggle.textContent = 'Menu';
+    });
+  });
+
+  var tabs = document.querySelectorAll('.tab');
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute('aria-selected', String(on));
+        document.getElementById(t.getAttribute('aria-controls')).hidden = !on;
+      });
+    });
+  });
+
+  document.querySelectorAll('.copy').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var el = document.getElementById(btn.dataset.copy);
+      var done = function () { btn.textContent = 'Copied'; setTimeout(function () { btn.textContent = 'Copy'; }, 1600); };
+      var select = function () {
+        var range = document.createRange();
+        range.selectNodeContents(el);
+        var sel = window.getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+        btn.textContent = 'Selected';
+      };
+      try {
+        navigator.clipboard.writeText(el.textContent).then(done, select);
+      } catch (e) { select(); }
+    });
+  });
+
+  // Pudding is served at 8pm Nelson time; Off-Line Time runs 7-9pm.
+  var PUDDING = 20 * 60, OFFLINE_START = 19 * 60, OFFLINE_END = 21 * 60;
+  var big = document.getElementById('note-big');
+  var small = document.getElementById('note-small');
+  var clock = document.getElementById('note-clock');
+
+  function nelsonMinutes(now) {
+    var parts = new Intl.DateTimeFormat('en-NZ', { timeZone: 'Pacific/Auckland', hour: 'numeric', minute: 'numeric', hourCycle: 'h23' }).formatToParts(now);
+    var get = function (type) { return Number(parts.find(function (p) { return p.type === type; }).value); };
+    return get('hour') * 60 + get('minute');
+  }
+  function span(mins) {
+    var h = Math.floor(mins / 60), m = mins % 60;
+    return h ? h + 'h\u00a0' + m + 'm' : m + '\u00a0min';
+  }
+  function update() {
+    var now = new Date();
+    var mins;
+    try { mins = nelsonMinutes(now); } catch (e) { return; }
+    if (mins < OFFLINE_START) {
+      big.textContent = 'Pudding in ' + span(PUDDING - mins);
+      small.textContent = 'Off-Line Time starts at 7. Games and guitars come out.';
+    } else if (mins < PUDDING) {
+      big.textContent = 'Pudding in ' + span(PUDDING - mins);
+      small.textContent = 'Off-Line Time has started. Grab a seat by the fire.';
+    } else if (mins < OFFLINE_END) {
+      big.textContent = "Pudding's out!";
+      small.textContent = 'Hot chocolate pudding and ice cream, right now. Bring a bowl.';
+    } else {
+      big.textContent = 'Back tomorrow at 8pm';
+      small.textContent = "Tonight's pot is scraped clean. Same time tomorrow, every night of the year.";
+    }
+    var time = new Intl.DateTimeFormat('en-NZ', { timeZone: 'Pacific/Auckland', hour: 'numeric', minute: '2-digit', hour12: true }).format(now);
+    clock.textContent = "It's " + time.replace(' ', '').toLowerCase() + ' in Nelson right now';
+  }
+  update();
+  setInterval(update, 30000);
+})();
+</script>
+</body>
+</html>
